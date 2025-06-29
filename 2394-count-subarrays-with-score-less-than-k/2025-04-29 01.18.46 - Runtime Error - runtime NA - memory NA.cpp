@@ -1,0 +1,20 @@
+class Solution {
+public:
+    long long countSubarrays(vector<int>& nums, long long k) {
+       long long res=0;
+       int n=nums.size();
+       int l=0;
+       int r=0;
+       int sum=0;
+       while(r<n){
+        sum+=nums[r];
+        while(l<=r && sum*(r-l+1)>=k){
+        sum-=nums[l];
+        l++;
+        }
+        res+=r-l+1;
+        r++;
+       } 
+       return res;
+    }
+};

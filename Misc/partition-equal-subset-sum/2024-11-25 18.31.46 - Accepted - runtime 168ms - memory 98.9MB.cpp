@@ -1,0 +1,34 @@
+class Solution {
+    bool fun(int index,vector<int> &nums,int target, vector<vector<int>> &dp){
+        if(index<0){
+            return false;
+        }
+        if(target==0){
+            return true;
+        }
+        if(dp[index][target]!=-1){
+            return dp[index][target];
+        }
+bool not_take=fun(index-1,nums,target,dp);
+bool take=false;
+if(target>=nums[index]){
+    take=fun(index-1,nums,target-nums[index],dp);
+}
+return dp[index][target]=take|| not_take;
+    }
+public:
+    bool canPartition(vector<int>& nums) {
+        int total=0;
+        int n=nums.size();
+        for(int i=0;i<n;i++){
+            total+=nums[i];
+        }
+        if(total%2!=0){
+            return false;
+        }
+   
+       int target=total/2;
+         vector<vector<int>> dp(n,vector<int>(target+1,-1));
+       return fun(n-1,nums,target,dp);
+    }
+};
